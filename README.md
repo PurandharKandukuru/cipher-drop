@@ -175,7 +175,9 @@ Since files are encrypted client-side, the server only ever stores opaque cipher
 
 ## 🚀 Deployment notes
 
-- **Frontend**: set `VITE_API_URL` to your deployed backend URL (e.g. `https://api.yourdomain.com/api`) and build with `npm run build`.
+> 📘 Full step-by-step (Vercel frontend + backend host + exact env vars): see **[DEPLOY.md](./DEPLOY.md)**.
+
+- **Frontend**: deploy to Vercel (config in `vercel.json`); set `VITE_API_URL` to your deployed backend URL (e.g. `https://api.yourdomain.com/api`). Vercel **cannot** host the Express backend — deploy that separately.
 - **Backend CORS**: add your deployed frontend origin to `ALLOWED_ORIGINS`.
 - **Firebase Auth**: add your production domain under Firebase Console → Authentication → Settings → **Authorized domains** (Google sign-in fails otherwise).
 - **Storage in production**: `local` storage on hosts with an **ephemeral filesystem** (Render, Railway, Heroku, Cloud Run, serverless) loses files on every restart/redeploy/scale — download links will 404. Use a **persistent volume** (`STORAGE_DIR=/absolute/mount/path`, single instance) or switch to durable object storage (`STORAGE_DRIVER=firebase`, or an S3-compatible bucket).

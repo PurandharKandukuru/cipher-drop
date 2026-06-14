@@ -1,0 +1,4 @@
+# Vercel hosts the frontend only — the Express backend deploys to a separate host.
+backend/
+*.log
+dev-dist/
