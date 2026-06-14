@@ -10,7 +10,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.svg', 'apple-touch-icon.svg', 'robots.txt'],
+      includeAssets: ['favicon.ico', 'favicon.svg', 'favicon.png', 'icon.png', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'Cipher Drop - Secure File Sharing',
         short_name: 'Cipher Drop',
@@ -23,15 +23,15 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'icon.svg',
+            src: 'icon.png',
             sizes: '512x512',
-            type: 'image/svg+xml',
+            type: 'image/png',
             purpose: 'any maskable'
           },
           {
-            src: 'apple-touch-icon.svg',
+            src: 'apple-touch-icon.png',
             sizes: '180x180',
-            type: 'image/svg+xml',
+            type: 'image/png',
             purpose: 'apple touch icon'
           }
         ],
@@ -42,14 +42,14 @@ export default defineConfig({
             short_name: 'Upload',
             description: 'Upload a new encrypted file',
             url: '/upload',
-            icons: [{ src: 'icon.svg', sizes: '512x512' }]
+            icons: [{ src: 'icon.png', sizes: '512x512', type: 'image/png' }]
           },
           {
             name: 'Dashboard',
             short_name: 'Files',
             description: 'View your files',
             url: '/dashboard',
-            icons: [{ src: 'icon.svg', sizes: '512x512' }]
+            icons: [{ src: 'icon.png', sizes: '512x512', type: 'image/png' }]
           }
         ]
       },
