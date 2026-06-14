@@ -24,7 +24,7 @@ A zero-knowledge secure file sharing platform with end-to-end encryption. Your f
 | Frontend | React 19, Vite, Tailwind CSS 4 |
 | Backend | Node.js, Express.js |
 | Database | Firebase Firestore |
-| File Storage | Firebase Cloud Storage |
+| File Storage | Local disk (default) or Firebase Cloud Storage — pluggable driver |
 | Auth | Firebase Authentication (Email/Password + Google) |
 | Encryption | Web Crypto API (AES-256-GCM) |
 
@@ -72,15 +72,23 @@ A zero-knowledge secure file sharing platform with end-to-end encryption. Your f
    NODE_ENV=development
    FIREBASE_PROJECT_ID=your-project-id
    FIREBASE_STORAGE_BUCKET=your-project.firebasestorage.app
-   GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json
    MAX_FILE_SIZE=104857600
    ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+
+   # Storage driver: 'local' (disk, default — no Firebase Storage needed)
+   # or 'firebase' (requires a provisioned Cloud Storage bucket / Blaze plan)
+   STORAGE_DRIVER=local
+   STORAGE_DIR=storage
    ```
 
-4. **Download Firebase Service Account Key**
+4. **Add your Firebase Service Account Key**
    - Go to Firebase Console → Project Settings → Service Accounts
    - Click "Generate New Private Key"
-   - Save as `backend/serviceAccountKey.json`
+   - Save it as `backend/serviceAccountKey.json`
+
+   The backend auto-detects this file on startup. Alternatively, set
+   `FIREBASE_SERVICE_ACCOUNT_KEY` (inline JSON) or `GOOGLE_APPLICATION_CREDENTIALS`
+   (path) in `backend/.env`. **Never commit this file** — it's already gitignored.
 
 5. **Run the development servers**
    ```bash
@@ -151,6 +159,27 @@ secure-file-sharing1/
 | GET | `/api/shares/:token` | Get shared file metadata |
 | GET | `/api/shares/:token/download` | Download via share link |
 | DELETE | `/api/shares/:id` | Revoke share link |
+
+## 💾 Storage drivers
+
+The backend stores the encrypted blobs via a pluggable driver (`STORAGE_DRIVER` in `backend/.env`):
+
+| Driver | When to use | Notes |
+|--------|-------------|-------|
+| `local` *(default)* | Local dev, or a single always-on server with a persistent disk | Writes to `backend/storage/`. Zero setup. Set `STORAGE_DIR` to an absolute path to use a mounted volume in production. |
+| `firebase` | Production with Firebase Cloud Storage | Requires a provisioned bucket (Firebase **Blaze** plan) and `FIREBASE_STORAGE_BUCKET`. |
+
+Since files are encrypted client-side, the server only ever stores opaque ciphertext regardless of driver.
+
+> **Note on Firestore:** queries are written to use single-field filters with in-memory sorting, so **no composite indexes** need to be created.
+
+## 🚀 Deployment notes
+
+- **Frontend**: set `VITE_API_URL` to your deployed backend URL (e.g. `https://api.yourdomain.com/api`) and build with `npm run build`.
+- **Backend CORS**: add your deployed frontend origin to `ALLOWED_ORIGINS`.
+- **Firebase Auth**: add your production domain under Firebase Console → Authentication → Settings → **Authorized domains** (Google sign-in fails otherwise).
+- **Storage in production**: `local` storage on hosts with an **ephemeral filesystem** (Render, Railway, Heroku, Cloud Run, serverless) loses files on every restart/redeploy/scale — download links will 404. Use a **persistent volume** (`STORAGE_DIR=/absolute/mount/path`, single instance) or switch to durable object storage (`STORAGE_DRIVER=firebase`, or an S3-compatible bucket).
+- **Secrets**: provide `serviceAccountKey.json` (or `FIREBASE_SERVICE_ACCOUNT_KEY`) and the `.env` files on the host — they are intentionally not in the repo.
 
 ## 📄 License
 
