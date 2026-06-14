@@ -1,0 +1,37 @@
+# Environment Variables (DO NOT COMMIT)
+.env
+.env.local
+.env.production
+
+# Secrets / credentials (NEVER COMMIT)
+serviceAccountKey.json
+*-firebase-adminsdk-*.json
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+
+# Uploaded files (encrypted, but still sensitive) + local object storage
+uploads/*
+!uploads/.gitkeep
+storage/
+
+# Test coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build output
+dist/
+build/

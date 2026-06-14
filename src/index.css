@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+/* 🌌 CIPHER DROP THEME - Dark Mode (Default) 🌌 */
+/* Featuring cosmic purple/blue accents with deep space blacks */
+
+@theme {
+  /* Typography families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, monospace;
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Primary - Cosmic Purple */
+  --color-primary: #A855F7;
+  --color-primary-hover: #9333EA;
+  --color-primary-light: #C084FC;
+
+  /* Background - Deep Space Black */
+  --color-background: #000000;
+  --color-surface: #050505;
+  --color-surface-hover: #1A1A24;
+  --color-border: #27272A;
+  --color-border-focus: #A855F7;
+
+  /* Text Colors */
+  --color-text: #FAFAFA;
+  --color-text-muted: #A1A1AA;
+  --color-text-dim: #71717A;
+
+  /* Accent Colors */
+  --color-success: #22C55E;
+  --color-warning: #FB923C;
+  --color-error: #EF4444;
+
+  /* Special Colors - Cosmic Palette */
+  --color-violet: #8B5CF6;
+  --color-indigo: #6366F1;
+  --color-blue: #3B82F6;
+  --color-cyan: #06B6D4;
+
+  /* Shadows with purple glow */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.7), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -4px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 30px rgba(168, 85, 247, 0.4);
+}
+
+/* ☀️ LIGHT MODE THEME ☀️ */
+.light-mode {
+  --color-background: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F4F4F5;
+  --color-border: #E4E4E7;
+  --color-border-focus: #9333EA;
+
+  --color-text: #18181B;
+  --color-text-muted: #52525B;
+  --color-text-dim: #71717A;
+
+  /* Shadows for light mode */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 30px rgba(168, 85, 247, 0.2);
+}
+
+/* ▚▚▚ PLATFORM ARCHITECTURE — premium light dashboard surface ▚▚▚ */
+/* Self-contained design system used by /dashboard (variant="platform").  */
+.platform {
+  --pa-bg: #F9FAFB;
+  --pa-surface: #FFFFFF;
+  --pa-surface-2: #F3F4F6;
+  --pa-text: #111827;
+  --pa-text-2: #4B5563;
+  --pa-text-3: #9CA3AF;
+  --pa-border: #E5E7EB;
+  --pa-accent: #4F46E5;
+  font-family: var(--font-sans);
+  color: var(--pa-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle technical dot-grid that sits behind dashboard content (light) */
+.platform-grid {
+  background-image: radial-gradient(circle at center, rgba(17, 24, 39, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+}
+
+/* Dark technical dot-grid for the premium dark dashboard */
+.platform-grid-dark {
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 78%);
+}
+
+/* Animated sheen sweep for premium buttons */
+@keyframes pa-sheen {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  100% { transform: translateX(220%) skewX(-20deg); }
+}
+.pa-sheen::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-120%) skewX(-20deg);
+  pointer-events: none;
+}
+.pa-sheen:hover::after { animation: pa-sheen 0.85s ease; }
+
+/* Continuously flowing violet→indigo gradient border (Upload button) */
+@keyframes pa-border-flow {
+  to { background-position: 200% 0; }
+}
+.pa-gradient-border {
+  background-image: linear-gradient(90deg, #A855F7, #6366F1, #C084FC, #6366F1, #A855F7);
+  background-size: 200% 100%;
+  animation: pa-border-flow 3.5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa-gradient-border { animation: none; }
+}
+
+/* Soft ambient halo for cards on hover (restrained, mostly neutral) */
+.pa-halo {
+  transition: box-shadow 0.4s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.pa-halo:hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 18px 48px -20px rgba(0, 0, 0, 0.55),
+    0 0 40px -6px rgba(168, 85, 247, 0.10);
+}
+
+/* ▚ Premium glass panel — clean frosted dark surface with crisp hairline
+   borders and a soft neutral depth shadow. No glow. ▚ */
+.pa-panel {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  /* Opaque dark surface (no backdrop-filter) — premium look, and cheap to
+     repaint so scrolling stays smooth. */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
+    #0c0c14;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 20px 44px -30px rgba(0, 0, 0, 0.75);
+  transition: box-shadow 0.4s ease, border-color 0.35s ease;
+}
+.pa-panel:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 28px 60px -32px rgba(0, 0, 0, 0.85);
+}
+
+/* ▚ Perspective horizon grid — premium double-grid floor + mirrored ceiling
+   receding to a glowing vanishing point. Refined, cinematic, not neon. ▚ */
+.pa-horizon-floor,
+.pa-horizon-ceil {
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  background-image:
+    linear-gradient(to right, rgba(168, 85, 247, 0.24) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(129, 140, 248, 0.20) 1.5px, transparent 1.5px),
+    linear-gradient(to right, rgba(168, 85, 247, 0.085) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(129, 140, 248, 0.075) 1px, transparent 1px);
+  background-size: 176px 176px, 176px 176px, 44px 44px, 44px 44px;
+  will-change: background-position;
+}
+.pa-horizon-floor {
+  top: 44%;
+  bottom: -18%;
+  transform: perspective(280px) rotateX(62deg);
+  transform-origin: top center;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, rgba(0, 0, 0, 0.5) 55%, transparent 88%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, rgba(0, 0, 0, 0.5) 55%, transparent 88%);
+  animation: pa-floor-move 20s linear infinite;
+}
+.pa-horizon-ceil {
+  top: -18%;
+  bottom: 56%;
+  opacity: 0.45;
+  transform: perspective(280px) rotateX(-62deg);
+  transform-origin: bottom center;
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 9%, rgba(0, 0, 0, 0.5) 55%, transparent 88%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 9%, rgba(0, 0, 0, 0.5) 55%, transparent 88%);
+  animation: pa-ceil-move 20s linear infinite;
+}
+@keyframes pa-floor-move {
+  to { background-position: 0 176px, 0 176px, 0 176px, 0 176px; }
+}
+@keyframes pa-ceil-move {
+  to { background-position: 0 -176px, 0 -176px, 0 -176px, 0 -176px; }
+}
+/* Glowing vanishing point where the planes meet */
+.pa-horizon-glow {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  width: 780px;
+  height: 380px;
+  max-width: 120vw;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.28), rgba(99, 102, 241, 0.10) 42%, transparent 70%);
+  animation: pa-horizon-pulse 7s ease-in-out infinite;
+}
+.pa-horizon-line {
+  position: absolute;
+  top: 44%;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.7) 28%, rgba(129, 140, 248, 0.7) 72%, transparent);
+  animation: pa-line-pulse 7s ease-in-out infinite;
+}
+@keyframes pa-line-pulse {
+  0%, 100% { opacity: 0.75; box-shadow: 0 0 45px 5px rgba(124, 58, 237, 0.22); }
+  50% { opacity: 1; box-shadow: 0 0 80px 9px rgba(124, 58, 237, 0.42); }
+}
+@keyframes pa-horizon-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.pa-horizon-sun {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  width: 860px;
+  height: 560px;
+  max-width: 130vw;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center 74%, rgba(124, 58, 237, 0.18), rgba(99, 102, 241, 0.07) 45%, transparent 72%);
+}
+/* Subtle film grain — adds premium texture and removes glow banding */
+.pa-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa-horizon-floor, .pa-horizon-ceil, .pa-horizon-line, .pa-horizon-glow { animation: none; }
+}
+
+/* Monospace technical label — the Platform Architecture signature */
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pa-text-3);
+}
+
+/* Masked reveal used for hero/section headings */
+@keyframes pa-reveal {
+  from { opacity: 0; transform: translateY(14px); clip-path: inset(0 0 100% 0); }
+  to   { opacity: 1; transform: translateY(0);   clip-path: inset(0 0 0 0); }
+}
+.pa-reveal { animation: pa-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-dim);
+}
+
+/* Focus outline for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for theme switch */
+a,
+button,
+input,
+textarea,
+select,
+.bg-background,
+.bg-surface,
+.text-text,
+.border-border {
+  transition: all 0.2s ease;
+}

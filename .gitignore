@@ -1,0 +1,47 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+dev-dist
+*.local
+
+# Environment Variables (DO NOT COMMIT)
+.env
+.env.local
+.env.production
+
+# Secrets / credentials (NEVER COMMIT)
+serviceAccountKey.json
+**/serviceAccountKey.json
+*-firebase-adminsdk-*.json
+*.pem
+*.key
+
+# Backend uploads & local object storage (encrypted blobs)
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/storage/
+storage/
+
+# Test coverage
+coverage/
+backend/coverage/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

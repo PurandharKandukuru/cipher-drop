@@ -1,0 +1,7 @@
+# Uploads Directory
+# This directory stores encrypted files only
+# The server NEVER has access to decryption keys
+# All files here are encrypted blobs created client-side
+
+# Keep this directory secure and backed up
+# Files are automatically deleted after expiry (TTL index in MongoDB)
